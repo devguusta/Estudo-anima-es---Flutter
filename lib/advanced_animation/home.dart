@@ -27,21 +27,20 @@ class _HomePageState extends State<HomePage>
         CurvedAnimation(
             parent: _controller,
             curve: const Interval(0.0, 0.20, curve: Curves.easeOut)));
-
     _contentAnimation = Tween(begin: 0.0, end: 34.0).animate(CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.20, 0.40, curve: Curves.easeOut)));
-
-// Opacity goes from 0.0 to 1.0
     _listAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.40, 0.75, curve: Curves.easeOut)));
-
-// Fab Size goes from size * 0.0 to size * 1.0
     _fabAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.75, 1.0, curve: Curves.easeOut)));
     _controller.forward();
+    _controller.addListener(() {
+      setState(() {});
+    });
+    _controller.repeat();
   }
 
   @override
