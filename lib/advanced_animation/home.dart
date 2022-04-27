@@ -1,3 +1,4 @@
+import 'package:advanced_animations/advanced_animation/animated_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -49,7 +50,13 @@ class _HomePageState extends State<HomePage>
         floatingActionButton: Transform.scale(
           scale: _fabAnimation.value,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AnimatedContainerWidget()),
+              );
+            },
             child: const Icon(Icons.add),
           ),
         ),
@@ -103,12 +110,18 @@ class _HomePageState extends State<HomePage>
                     child: Opacity(
                       opacity: _listAnimation.value,
                       child: ListView.builder(
-                        itemCount: 40,
                         itemBuilder: (context, position) {
                           return CheckboxListTile(
                             title: Text("This is item $position"),
                             value: true,
-                            onChanged: (val) {},
+                            onChanged: (val) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AnimatedContainerWidget()),
+                              );
+                            },
                           );
                         },
                       ),
