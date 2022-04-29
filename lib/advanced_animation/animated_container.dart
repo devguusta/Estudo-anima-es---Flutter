@@ -13,6 +13,7 @@ class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget>
   late AnimationController _controller;
   late Animation _containerAnimation;
   late Animation _positionAnimation;
+  List list = List.generate(15, (index) => index);
 
   @override
   void initState() {
@@ -20,17 +21,17 @@ class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 2),
     );
     _positionAnimation =
         AlignmentTween(begin: Alignment.centerLeft, end: Alignment.center)
             .animate(CurvedAnimation(
                 parent: _controller,
-                curve: const Interval(0.0, 0.7, curve: Curves.easeInOut)));
-    _containerAnimation = Tween(begin: 40.0, end: 200.0).animate(
+                curve: const Interval(0.0, 0.4, curve: Curves.easeInOut)));
+    _containerAnimation = Tween(begin: 70.0, end: 120.0).animate(
         CurvedAnimation(
             parent: _controller,
-            curve: const Interval(0.4, 1.0, curve: Curves.bounceOut)));
+            curve: const Interval(0.4, 0.6, curve: Curves.easeInOut)));
 
     _controller.forward();
     _controller.repeat();
@@ -43,13 +44,40 @@ class _AnimatedContainerWidgetState extends State<AnimatedContainerWidget>
       body: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            return Align(
-              alignment: _positionAnimation.value,
-              child: Container(
-                height: _containerAnimation.value,
-                width: _containerAnimation.value,
-                color: Colors.blue,
-              ),
+            return GridView.count(
+              childAspectRatio: 1,
+              crossAxisCount: 3,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: list
+                  .map(
+                    (e) => Align(
+                      alignment: _positionAnimation.value,
+                      child: Container(
+                        height: _containerAnimation.value,
+                        width: _containerAnimation.value,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.black.withOpacity(0.8),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black87,
+                              offset: Offset(5, 5),
+                              blurRadius: 10,
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             );
           }),
     );
