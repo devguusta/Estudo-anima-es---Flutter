@@ -78,18 +78,20 @@ class _TesteMethodChannelState extends State<TesteMethodChannel> {
                 late String userName;
                 late String userPassword;
                 try {
-                  final Map result = await platform.invokeMethod(
+                  final List result = await platform.invokeMethod(
                     'handleInput',
                     {
-                      'email': _emailController.text,
-                      'password': _passwordController.text,
+                      "email": _emailController.text,
+                      "password": _passwordController.text,
                     },
                   );
-                  userName = result["email"];
-                  userPassword = result["password"];
+                  print(result);
+                  userName = result[0];
+                  userPassword = result[1];
                 } catch (e) {
                   print(e);
-                  userName = e.toString();
+                  userName = e.runtimeType.toString();
+                  userPassword = e.runtimeType.toString();
                 }
                 setState(() {
                   _userEmail = userName;
