@@ -1,4 +1,5 @@
 import 'package:advanced_animations/advanced_animation/animated_container.dart';
+import 'package:advanced_animations/method_channel/teste_method_channel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -118,7 +119,7 @@ class _HomePageState extends State<HomePage>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const AnimatedContainerWidget()),
+                                        const TesteMethodChannel()),
                               );
                             },
                           );
